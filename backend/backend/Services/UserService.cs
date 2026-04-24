@@ -31,7 +31,7 @@ public class UserService(AppDbContext context): IUserService
         {
             Username = userDto.Username,
             Email = userDto.Email,
-            PasswordHash = userDto.Password
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password)
         };
 
         _context.Users.Add(user);

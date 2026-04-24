@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers;
 
-[Controller]
+[ApiController]
 [Route("/api/[controller]")]
 public class HabitController(HabitService habitService): ControllerBase
 {
@@ -29,9 +29,10 @@ public class HabitController(HabitService habitService): ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task DeleteHabit(int id)
+    public async Task<IActionResult> DeleteHabit(int id)
     {
         await _habitService.DeleteHabit(id);
+        return NoContent();
     }
 
     [HttpPut]
@@ -41,8 +42,9 @@ public class HabitController(HabitService habitService): ControllerBase
     }
 
     [HttpPut("toggle")]
-    public async Task ToggleHabit(ToggleHabitDto dto)
+    public async Task<IActionResult> ToggleHabit(ToggleHabitDto dto)
     {
         await _habitService.ToggleHabit(dto);
+        return NoContent();
     }
 }

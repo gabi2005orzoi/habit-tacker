@@ -15,12 +15,12 @@ public class HabitService(AppDbContext context): IHabitService
     {
         var exists = await _context.Users.AnyAsync(u => u.Id == userId);
         
-        if (exists)
+        if (!exists)
         {
             throw new Exception("The user doesn't exist");
         }
 
-        return await _context.Habits.Where(u => u.Id == userId).ToListAsync();
+        return await _context.Habits.Where(h => h.UserId == userId).ToListAsync();
     }
 
     public async Task<Habit> GetById(int userId, int habitId)
